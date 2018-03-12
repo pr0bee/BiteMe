@@ -1,15 +1,21 @@
-ο»Ώusing BiteMe.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-
-namespace BiteMe.DAL
+namespace BiteMe.Migrations
 {
-    public class BiteMeInitializer : DropCreateDatabaseIfModelChanges<BiteMeContext>
+    using BiteMe.Models;
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<BiteMe.DAL.BiteMeContext>
     {
-        protected override void Seed(BiteMeContext context)
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = false;
+            ContextKey = "BiteMe.DAL.SchoolContext";
+        }
+
+        protected override void Seed(BiteMe.DAL.BiteMeContext context)
         {
             var products = new List<Product>
             {
@@ -39,7 +45,7 @@ namespace BiteMe.DAL
 
             var customers = new List<Customer>
             {
-                // ΞΞ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞµΞ―Ο„Ξ±ΞΉ Ξ±Ο…Ο„ΟΞΌΞ±Ο„Ξ± ΞΌΞµ Ο„Ξ·Ξ½ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± account.
+                // Να δημιουργείται αυτόματα με την δημιουργία account.
                 new Customer{ FirstName = "Thanos", LastName = "Melistas", Address = "Hremonidou 1", ZipCode = "11634", Email = "thanos.melistas@gmail.com", Password = "Woody", Phone = "6944197987", Gender = Gender.Male },
                 new Customer{ FirstName = "Panagiotis", LastName = "Bourmpopoulos", Address = "Ag.Georgiou 5", ZipCode = "EC57B", Email = "bourmpopoulos@gmail.com", Password = "12345", Phone = "6990789546", Gender = Gender.Male },
                 new Customer{ FirstName = "Eirini", LastName = "Stamataki", Address = "Alois", ZipCode = "19023", Email = "steirini@gmail.com", Password = "ohf89g", Phone = "6995680532", Gender = Gender.Female },
@@ -54,7 +60,7 @@ namespace BiteMe.DAL
 
             var orders = new List<Order>
             {
-                // Ξ Ο‰Ο‚ Ξ³Ξ―Ξ½ΞµΟ„Ξ±ΞΉ Ξ½Ξ± Ο€ΞµΟΞ¬ΟƒΞΏΟ…ΞΌΞµ ΟƒΟ„ΞΏ orders, products ΞΊΞ±ΞΉ Ο„ΞΏ Ο„ΞµΞ»ΞΉΞΊΟ Ο€ΞΏΟƒΟ Ο€Ξ±ΟΞ±Ξ³Ξ³ΞµΞ»Ξ―Ξ±Ο‚ (totalUnitPrice) ???
+                // Πως γίνεται να περάσουμε στο orders, products και το τελικό ποσό παραγγελίας (totalUnitPrice) ???
                 new Order {OrderDate = DateTime.Parse("2005-09-01"), DeliveryDate = DateTime.Parse("2005-09-02"), CustomerID = 1, Status = Status.Delivered },
                 new Order {OrderDate = DateTime.Parse("2011-12-23"), DeliveryDate = DateTime.Parse("2012-01-01"), CustomerID = 1, Status = Status.Delivered },
                 new Order {OrderDate = DateTime.Parse("2017-04-17"), DeliveryDate = DateTime.Parse("2017-04-18"), CustomerID = 2, Status = Status.Delivered },
@@ -69,7 +75,7 @@ namespace BiteMe.DAL
 
             var productOrders = new List<ProductOrder>
             {
-                // ΞΞ½Ξ± order ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ­Ο‡ΞµΞΉ Ο€ΞΏΞ»Ξ»Ξ¬ product. Ξ Ο‰Ο‚ Ο„Ξ± Ο€Ξ±Ξ―ΟΞ½ΞµΞΉ Ξ±Ο…Ο„ΟΞΌΞ±Ο„Ξ± ???
+                // Ένα order μπορεί να έχει πολλά product. Πως τα παίρνει αυτόματα ???
                 new ProductOrder{ProductID = 2, OrderID = 1, Quantity = 10 },
                 new ProductOrder{ProductID = 3, OrderID = 1, Quantity = 20 },
                 new ProductOrder{ProductID = 5, OrderID = 2, Quantity = 10 },

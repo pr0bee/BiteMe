@@ -10,6 +10,7 @@ namespace BiteMe.Models
         Male,
         Female
     }
+
     public class Customer
     {
         public int CustomerID { get; set; }
@@ -21,7 +22,6 @@ namespace BiteMe.Models
         public string Password { get; set; }
         public string Phone { get; set; }
         public Gender Gender { get; set; }
-        public int OrderID { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
     }
